@@ -15,6 +15,7 @@ const cache = new NodeCache({ checkperiod: 0});
 const setPlaylistCache = () => {
     return getPlaylists().then(playlists => {
         cache.set(envConfig.playlistCacheKey, playlists);
+        cache.set(envConfig.lastUpdated, new Date().getTime());
         console.log('Cache set');
         return playlists;
     });
@@ -52,7 +53,10 @@ app.get('/playlists', (req, res) => {
 });
 
 // Catch all other incoming requests
-app.all('*', (req, res) => res.end());
+app.all('*', (req, res) => {
+    let updated = cache.get(envConfig.lastUpdated);
+    res.json({ updated });
+});
 
 // initialize cache
 setPlaylistCache().catch(err => console.error(err));
