@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "monitor": "nodemon bin/www.js --ignore 'config.json' --exec babel-node",
-    "build": "babel . --ignore node_modules -d dist",
+    "build": "babel src -d dist",
     "start": "node dist/bin/www.js",
     "test": "mocha --compilers js:babel-register"
   },
