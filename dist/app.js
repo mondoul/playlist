@@ -45,7 +45,7 @@ var cache = new _nodeCache2.default({ checkperiod: 0 });
 var setPlaylistCache = function setPlaylistCache() {
     return (0, _vimeoService.getPlaylists)().then(function (playlists) {
         cache.set(envConfig.playlistCacheKey, playlists);
-        cache.set(envConfig.lastUpdated, +new Date());
+        cache.set(envConfig.lastUpdated, new Date().getTime());
         console.log('Cache set');
         return playlists;
     });
@@ -74,7 +74,9 @@ app.put('/playlists', function (req, res) {
 app.get('/playlists', function (req, res) {
     try {
         var playlists = cache.get(envConfig.playlistCacheKey, true);
-        res.json(playlists);
+        var updated = cache.get(envConfig.lastUpdated);
+
+        res.json({ updated: updated, playlists: playlists });
     } catch (error) {
         console.log(error);
         res.json([]);
