@@ -14,10 +14,11 @@ const cache = new NodeCache({ checkperiod: 0});
 
 const setPlaylistCache = () => {
     return getPlaylists().then(playlists => {
+        let updated = new Date().getTime();
         cache.set(envConfig.playlistCacheKey, playlists);
-        cache.set(envConfig.lastUpdated, new Date().getTime());
-        console.log('Cache set');
-        return playlists;
+        cache.set(envConfig.lastUpdated, updated);
+        console.log(`Cache set at ${updated}`);
+        return { updated, playlists };
     });
 };
 
@@ -34,10 +35,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set the playlists data in cache
 app.put('/playlists', (req, res) => {
 
-    setPlaylistCache().catch(err => {
-        console.log(err);
-        res.status(500).json('Couldn\'t cache the playlists.');
-    });
+    setPlaylistCache()
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ updated: 0, playlists: [] });
+        });
 
 });
 
@@ -45,19 +50,24 @@ app.put('/playlists', (req, res) => {
 app.get('/playlists', (req, res) => {
     try {
         let playlists = cache.get(envConfig.playlistCacheKey, true);
-        let updated = cache.get(envConfig.lastUpdated);
+        let updated = cache.get(envConfig.lastUpdated, true);
 
         res.json({ updated, playlists });
     } catch (error) {
         console.log(error);
-         res.json([]);
+        res.json({ updated: 0, playlists: [] });
     }
 });
 
 // Catch all other incoming requests
 app.all('*', (req, res) => {
-    let updated = cache.get(envConfig.lastUpdated);
-    res.json({ updated });
+    try {
+        let updated = cache.get(envConfig.lastUpdated, true);
+        res.json({ updated });
+    } catch (error) {
+        console.log(error);
+        res.json({ updated: 0 });
+    }
 });
 
 // initialize cache
