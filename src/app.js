@@ -45,7 +45,9 @@ app.put('/playlists', (req, res) => {
 app.get('/playlists', (req, res) => {
     try {
         let playlists = cache.get(envConfig.playlistCacheKey, true);
-        res.json(playlists);
+        let updated = cache.get(envConfig.lastUpdated);
+
+        res.json({ updated, playlists });
     } catch (error) {
         console.log(error);
          res.json([]);
