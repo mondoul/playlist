@@ -95,7 +95,8 @@ const getAlbumVideos = (albumId) => {
                         thumbnail,
                         videoLink,
                         title: video.name,
-                        description: video.description
+                        description: video.description,
+                        duration: video.duration
                     };
                 }));
             }
