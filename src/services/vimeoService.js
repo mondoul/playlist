@@ -32,7 +32,8 @@ export function getPlaylists() {
                            title: video.title,
                            description: video.description,
                            video: video.videoLink,
-                           thumbnail: video.thumbnail
+                           thumbnail: video.thumbnail,
+                           duration: video.duration
                        }
                    });
 
