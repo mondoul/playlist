@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set the playlists data in cache
-app.put('/playlists', (req, res) => {
+app.get('/update-playlists', (req, res) => {
 
     setPlaylistCache()
         .then(result => {
