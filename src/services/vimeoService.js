@@ -29,9 +29,11 @@ export function getPlaylists() {
                    let videos = albumVideos.map((video, i) => {
                        return {
                            order: i + 1,
+                           id: video.videoId,
                            title: video.title,
                            description: video.description,
                            video: video.videoLink,
+                           download: video.downloadLink,
                            thumbnail: video.thumbnail,
                            duration: video.duration
                        }
@@ -89,12 +91,14 @@ const getAlbumVideos = (albumId) => {
                     let videoId = video.uri.substr(video.uri.lastIndexOf('/') + 1);
                     let thumbnail = video.pictures.sizes.find(s => s.width === 640).link;
                     let videoLink = video.files.find(f => f.quality === 'hls').link;
+                    let downloadLink = video.download.find(f => f.height === 720).link;
 
                     return {
                         albumId,
                         videoId,
                         thumbnail,
                         videoLink,
+                        downloadLink,
                         title: video.name,
                         description: video.description,
                         duration: video.duration

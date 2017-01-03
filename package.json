@@ -2,7 +2,7 @@
   "name": "vimeo-api",
   "version": "1.0.0",
   "scripts": {
-    "monitor": "nodemon bin/www.js --ignore 'config.json' --exec babel-node",
+    "monitor": "nodemon src/bin/www.js --ignore 'config.json' --exec babel-node",
     "build": "babel src -d dist",
     "start": "node dist/bin/www.js",
     "test": "mocha --compilers js:babel-register",
