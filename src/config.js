@@ -5,8 +5,8 @@ const config = {
         lastUpdated: 'last-updated-timestamp',
         vimeo: {
             clientId: 'd446795242b03ae86ec5f935431d69e24e0d851b',
-            clientSecret: 'whM2szzzGKxTh4m0WvqCcqGnT52r6e+hz3h02xEaaHc6eUYPS1Gtr7jKtxQKfrpOonYfAYMQVedGnvdULfdrvQgNaEKhCjuPqTWvdfM0koXJi0hYKSSnreS+o/wvaSob',
-            accessToken: 'f6fc1b2326e32bac759cd7f53dc225fd'
+            clientSecret: 'HUm9fgitnbjFoc3sY4wc61wkL69OhPLqtj38WO5cvSHgB0ILERUiP/9zHvEcyugWzwgvPSJUF4R1+xXkqtwEwZD3RsRhd4Bhjsav0EKQ5eX9XmQwKlx63iNzVUR0lBgB',
+            accessToken: '89e944e1fbe3707a3a5db13094892e7c'
         }
     },
     production: {
@@ -15,8 +15,8 @@ const config = {
         lastUpdated: 'last-updated-timestamp',
         vimeo: {
             clientId: 'd446795242b03ae86ec5f935431d69e24e0d851b',
-            clientSecret: 'whM2szzzGKxTh4m0WvqCcqGnT52r6e+hz3h02xEaaHc6eUYPS1Gtr7jKtxQKfrpOonYfAYMQVedGnvdULfdrvQgNaEKhCjuPqTWvdfM0koXJi0hYKSSnreS+o/wvaSob',
-            accessToken: 'f6fc1b2326e32bac759cd7f53dc225fd'
+            clientSecret: 'HUm9fgitnbjFoc3sY4wc61wkL69OhPLqtj38WO5cvSHgB0ILERUiP/9zHvEcyugWzwgvPSJUF4R1+xXkqtwEwZD3RsRhd4Bhjsav0EKQ5eX9XmQwKlx63iNzVUR0lBgB',
+            accessToken: '89e944e1fbe3707a3a5db13094892e7c'
         }
     }
 };
