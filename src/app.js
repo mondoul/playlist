@@ -18,7 +18,7 @@ const setPlaylistCache = () => {
         cache.set(envConfig.playlistCacheKey, playlists);
         cache.set(envConfig.lastUpdated, updated);
         console.log(`Cache set at ${updated}`);
-        return { updated, playlists };
+        return { updated, ...envConfig.playlists, playlists };
     });
 };
 
@@ -52,7 +52,7 @@ app.get('/playlists', (req, res) => {
         let playlists = cache.get(envConfig.playlistCacheKey, true);
         let updated = cache.get(envConfig.lastUpdated, true);
 
-        res.json({ updated, playlists });
+        res.json({ updated, ...envConfig.playlists ,  playlists });
     } catch (error) {
         console.log(error);
         res.json({ updated: 0, playlists: [] });

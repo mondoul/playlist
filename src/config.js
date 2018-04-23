@@ -3,6 +3,12 @@ const config = {
         httpPort: 3001,
         playlistCacheKey: 'vimeo-playlist-data',
         lastUpdated: 'last-updated-timestamp',
+        playlists:
+            {
+                orientation: '4221859',
+                exercises: '4221862',
+                sequences: '4221868'
+            },
         vimeo: {
             clientId: 'd446795242b03ae86ec5f935431d69e24e0d851b',
             clientSecret: 'HUm9fgitnbjFoc3sY4wc61wkL69OhPLqtj38WO5cvSHgB0ILERUiP/9zHvEcyugWzwgvPSJUF4R1+xXkqtwEwZD3RsRhd4Bhjsav0EKQ5eX9XmQwKlx63iNzVUR0lBgB',
@@ -13,6 +19,12 @@ const config = {
         httpPort: process.env.PORT,
         playlistCacheKey: 'vimeo-playlist-data',
         lastUpdated: 'last-updated-timestamp',
+        playlists:
+            {
+                orientation: '4221859',
+                exercises: '4221862',
+                sequences: '4221868'
+            },
         vimeo: {
             clientId: 'd446795242b03ae86ec5f935431d69e24e0d851b',
             clientSecret: 'HUm9fgitnbjFoc3sY4wc61wkL69OhPLqtj38WO5cvSHgB0ILERUiP/9zHvEcyugWzwgvPSJUF4R1+xXkqtwEwZD3RsRhd4Bhjsav0EKQ5eX9XmQwKlx63iNzVUR0lBgB',
