@@ -72,7 +72,8 @@ const getAlbums = () => {
                         albumId
                     }
                 });
-                resolve(albums);
+                // only include albums that are specified in config
+                resolve(albums.filter(a => Object.values(envConfig.playlists).includes(a.albumId)));
             }
         });
     });
