@@ -50,7 +50,6 @@ app.get('/update-playlists', (req, res) => {
 
 // Retrieve the playlists data from cache
 app.get('/playlists', (req, res) => {
-
     try {
 
         let playlists = cache.get(envConfig.playlistCacheKey, true);
@@ -63,6 +62,8 @@ app.get('/playlists', (req, res) => {
         if (err.hasOwnProperty('errorcode') && err.errorcode === 'ENOTFOUND') {
             console.error(err.message);
             updatePlaylists(req, res);
+        } else {
+            res.status(500).json({ updated: 0, playlists: [] });
         }
     }
 });
