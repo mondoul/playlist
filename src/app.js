@@ -10,7 +10,7 @@ import { getConfig } from './config';
 
 const envConfig = getConfig();
 const app = express();
-const cache = new NodeCache({ checkperiod: 0});
+const cache = new NodeCache({ checkperiod: 0, errorOnMissing: true});
 
 const setPlaylistCache = () => {
     return getPlaylists().then(playlists => {
@@ -20,6 +20,17 @@ const setPlaylistCache = () => {
         console.log(`Cache set at ${updated}`);
         return { updated, ...envConfig.playlists, playlists };
     });
+};
+
+const updatePlaylists = (req, res) => {
+    setPlaylistCache()
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ updated: 0, playlists: [] });
+        });
 };
 
 app.use(logger('combined'));
@@ -34,28 +45,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set the playlists data in cache
 app.get('/update-playlists', (req, res) => {
-
-    setPlaylistCache()
-        .then(result => {
-            res.json(result);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ updated: 0, playlists: [] });
-        });
-
+    updatePlaylists(req, res);
 });
 
 // Retrieve the playlists data from cache
 app.get('/playlists', (req, res) => {
+
     try {
+
         let playlists = cache.get(envConfig.playlistCacheKey, true);
         let updated = cache.get(envConfig.lastUpdated, true);
-
         res.json({ updated, ...envConfig.playlists ,  playlists });
-    } catch (error) {
-        console.log(error);
-        res.json({ updated: 0, playlists: [] });
+
+    } catch( err) {
+
+        // Missing cache key, let's set playlist cache and return
+        if (err.hasOwnProperty('errorcode') && err.errorcode === 'ENOTFOUND') {
+            console.error(err.message);
+            updatePlaylists(req, res);
+        }
     }
 });
 
