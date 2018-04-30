@@ -1,6 +1,9 @@
 {
   "name": "vimeo-api",
   "version": "1.0.0",
+  "engines": {
+    "npm": ">=5.7.1"
+  },
   "scripts": {
     "monitor": "nodemon src/bin/www.js --ignore 'config.json' --exec babel-node",
     "build": "babel src -d dist",
